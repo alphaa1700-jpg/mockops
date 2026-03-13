@@ -4,7 +4,6 @@ services:
 
   db:
     image: postgres:15
-    container_name: mockops-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -28,7 +27,6 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: mockops-nginx
     ports:
       - "80:80"
     volumes:
@@ -39,7 +37,6 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: mockops-prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -49,20 +46,10 @@ services:
 
   grafana:
     image: grafana/grafana
-    container_name: mockops-grafana
     ports:
       - "3000:3000"
     depends_on:
       - prometheus
-
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: mockops-jenkins
-    ports:
-      - "8080:8080"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   postgres_data:
